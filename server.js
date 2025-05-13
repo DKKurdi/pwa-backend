@@ -1,11 +1,10 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -44,7 +43,6 @@ app.post('/api/users', async (req, res) => {
     res.status(201).json({ message: 'Użytkownik zarejestrowany.' });
 });
 
-// Logowanie użytkownika
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -65,7 +63,6 @@ app.post('/api/login', async (req, res) => {
         res.status(500).json({ message: 'Wystąpił błąd serwera.' });
     }
 });
-
 
 app.listen(PORT, () => {
     console.log(`Serwer działa na porcie ${PORT}`);
